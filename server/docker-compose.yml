@@ -1,0 +1,58 @@
+# Stage: Development
+
+services:
+  # Development environment
+  app-dev:
+    build:
+      context: .
+      target: development
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env.dev
+    depends_on:
+      - db-dev
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+  db-dev:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_USER: postgres.lgkxrmycxbtjnguroqgh
+      POSTGRES_PASSWORD: Bhuwan15@@
+      POSTGRES_DB: devdb
+    ports:
+      - "5433:5432" # Expose development database on a different port
+    volumes:
+      - postgres_data_dev:/var/lib/postgresql/data
+
+  # Stage: Production
+  # Production environment
+  app-prod:
+    build:
+      context: .
+      target: production
+    ports:
+      - "4000:3000"
+    env_file:
+      - .env.prod
+    depends_on:
+      - db-prod
+
+  db-prod:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_USER: production_my_school_note_user
+      POSTGRES_PASSWORD: gnS6agsmQTKEdTmRXKjxnzKpxJbYvqje
+      POSTGRES_DB: proddb
+    ports:
+      - "5434:5432" # Expose production database on a different port
+    volumes:
+      - postgres_data_prod:/var/lib/postgresql/data
+
+volumes:
+  postgres_data_dev:
+  postgres_data_prod:
