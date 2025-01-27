@@ -1,10 +1,10 @@
 import express, { Request, Response } from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-import router from "./routes/route";
 
 import errorHandler from "./middleware/errorHandler";
 import notFoundHandler from "./middleware/notFoundHandler";
+import authRouter from "./routes/authRoutes";
 
 // Load the appropriate .env file based on NODE_ENV
 dotenv.config({
@@ -28,7 +28,8 @@ app.get("/hello", (req, res) => {
 });
 
 // Use the router for API routes
-app.use("/api", router);
+// app.use("/api", router);
+app.use("/api", authRouter);
 
 // app.use(errorHandler);
 // app.use(notFoundHandler);
