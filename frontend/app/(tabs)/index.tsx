@@ -114,6 +114,7 @@ export default function HomeScreen() {
         <Text style={{ fontSize: 20 }}>Enter your email:</Text>
         <TextInput
           value={data.email}
+          className="border border-red-700 rounded-md p-2"
           onChangeText={(text) => handleChange("email", text)}
           style={{ borderWidth: 1, padding: 10, width: 200 }}
         />
